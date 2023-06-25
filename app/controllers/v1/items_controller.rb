@@ -1,0 +1,42 @@
+class V1::ItemsController < ApplicationController
+  def index
+    render json: Item.all.to_json
+  end
+
+  def show
+    item = Item.find_by(id: params[:id])
+
+    if item.nil?
+      render status: 404, json: { error: 'item not found' }.to_json
+    else
+      render json: item.to_json
+    end
+  end
+
+  def create
+    item = Item.new(item_params)
+
+    if item.save
+      render json: item.to_json
+    else
+      render status: 500, json: { error: 'item could not be created' }.to_json
+    end
+  end
+
+  def destroy
+    item = Item.find_by(id: params[:id])
+
+    if item.nil?
+      render status: 404, json: { error: 'item not found' }.to_json
+    else
+      item.destroy
+      render json: { message: 'item deleted' }.to_json
+    end
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:name, :color, :price, :brand, :category)
+  end
+end
