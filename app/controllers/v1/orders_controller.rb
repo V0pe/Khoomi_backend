@@ -1,4 +1,6 @@
 class V1::OrdersController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     render json: Order.all.to_json
   end

@@ -1,4 +1,6 @@
 class V1::BrandsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     render json: Brand.all.to_json
   end

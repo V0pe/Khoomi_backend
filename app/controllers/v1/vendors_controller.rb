@@ -1,4 +1,6 @@
 class V1::VendorsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     render json: Vendor.all.to_json
   end

@@ -1,4 +1,6 @@
 class V1::CategoriesController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     render json: Category.all.to_json
   end
