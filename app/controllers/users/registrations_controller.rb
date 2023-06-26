@@ -4,6 +4,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
+  def sign_up_params
+    params.require(:user).permit(:first_name, :last_name, :country, :date_of_birth, :email, :password)
+  end
+
   def respond_with(resource, _opts = {})
     if resource.persisted?
       render json: {
